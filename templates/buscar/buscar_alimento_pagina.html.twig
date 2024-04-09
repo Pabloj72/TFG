@@ -1,0 +1,20 @@
+{# templates/buscar_alimento_pagina.html.twig #}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Alimento</title>
+</head>
+<body>
+    <h1>Buscar Alimento</h1>
+    
+    {# Formulario de búsqueda de alimentos #}
+    <form action="{{ path('pagina_busqueda') }}" method="GET">
+        <label for="busqueda">Buscar Alimento:</label>
+        <input type="text" id="busqueda" name="busqueda">
+        <button type="submit">Buscar</button>
+    </form>
+</body>
+</html>

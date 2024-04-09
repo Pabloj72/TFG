@@ -1,0 +1,157 @@
+v{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+   
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="overlay"></div>
+    <div class="registration-container">
+
+    <h1>Login</h1>
+    {# Comprueba si hay errores #}
+    
+
+    {% if error %}
+        <div class="error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    {# Si el usuario ha iniciado sesión, muéstrale un mensaje #}
+        {% if app.user %}
+            <div class="mb-3">
+                Logged as {{ app.user.userIdentifier }} - <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        
+
+    {# Muestra el formulario de inicio de sesión #}
+
+
+    <form action="{{ path('app_login') }}" method="post">
+    
+        <label for="username">Email:</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="_password">
+
+        {# If you want to control the URL the user is redirected to on success #}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        
+
+        <button type="submit">Login</button>        
+    </form>
+    <p>No tienes cuenta? <a href="{{ path('app_register') }}" class="register-link">Regístrate aquí</a></p>
+    </div>
+</body>
+</html>
+
+ <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Para ocultar el desenfoque que se extiende más allá del cuerpo */
+            background-color: black;
+        }
+
+        .background-image {
+            background: url('/uploads/images/fondo.png') center/cover fixed;
+            filter: blur(10px);
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: -1;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Ajusta la opacidad según tus preferencias */
+            z-index: 1;
+        }
+
+        .registration-container {
+            background-color: #ffffff;
+            color: #ffffff; /* Cambia el color del texto a blanco */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            color: #ffffff;
+            text-align: center;
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #DB5B1C;
+             color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+           background-color: #1DB954;
+            
+            color: #fff;       
+            }
+
+        .error-message {
+            color: #dc3545;
+            margin-bottom: 15px;
+        }
+        h1 {
+            color: #495057;}
+
+            /* Estilos específicos para el enlace de registro */
+    .register-link {
+        color: #DB5B1C;
+        text-decoration: none;
+        font-weight: bold;
+        padding-right: 20px;
+    }
+
+    .register-link:hover {
+        color: #1DB954;
+    }
+    </style>
+{% endblock %}

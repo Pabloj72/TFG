@@ -1,0 +1,14 @@
+TFG:
+
+Pagina default - 50%
+Register - Falta Frontend
+Login - Falta Frontend
+Pagina About - Falta todo
+Pagina Home ---> Resumen diario y navbar a todo
+Pagina ver perfil ----> Progreso/Editar datos
+Pagina alimentos -----> Buscador de alimentos con autocompletar
+Pagina añadir alimentos 
+
+Pagina Administrador
+Pagina añadir ejercicios
+

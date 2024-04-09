@@ -5,3 +5,19 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+
+
+# config/routes.yaml
+home:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+buscar_alimento_por_palabra_clave:
+    path: /buscar-alimento
+    controller: App\Controller\FoodController::buscarPorPalabraClave
+
+pagina_busqueda:
+    path: /buscar-alimento
+    controller: App\Controller\FoodController::mostrarPaginaBusqueda
+    methods: ['GET']
+
