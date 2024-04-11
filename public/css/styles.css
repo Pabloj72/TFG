@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    
+* {
+    padding: 0;
+    margin: 0;
+    
+}
+
+body {
+    background-color: #f3f4f5;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+}
+
+.dark-mode {
+    background-color: #222;
+    color: #fff;
+}
+
+.dark-mode .navbar {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Ajusta los estilos adicionales según sea necesario */
+
+/* Navbar */
+
+.navbar {
+    background-color: #ffffff; /* Color de fondo de la barra de navegación */
+    border-bottom: 1px solid #e3e3e3; /* Borde inferior */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+    padding: 30px 40px; /* Espaciado interno */
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+}
+
+.navbar-brand h1 {
+    font-size: 36px; /* Tamaño del texto del logotipo aumentado */
+    font-weight: 700; /* Peso de la fuente */
+    color: #32db1c; /* Color del texto */
+    margin-right: 40px; /* Mayor espacio a la derecha */
+}
+
+.navbar-toggler {
+    border: none; /* Quita el borde del botón de alternar */
+}
+
+.navbar-nav .nav-item {
+    margin-left: 25px; /* Espaciado entre elementos de la barra de navegación */
+    margin-top: 5px;
+}
+
+.navbar-nav .nav-item a {
+    color: #333333; /* Color del texto de los enlaces */
+    font-weight: 500; /* Peso de la fuente */
+    font-size: 20px; /* Tamaño del texto de los enlaces aumentado */
+}
+
+.nav-item.dropdown .dropdown-menu {
+    border: none; /* Quita el borde del menú desplegable */
+    border-top: 2px solid #32db1c; /* Borde superior */
+    
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block; /* Muestra el menú desplegable al pasar el mouse sobre el elemento de menú */
+
+}
+/* Textos dropdown */
+.nav-item.dropdown .dropdown-item,
+.nav-item.dropdown .nav-link.dropdown-toggle {
+    color: #333333; /* Color del texto de los enlaces */
+    font-weight: 500; /* Peso de la fuente */
+    font-size: 15px;  
+}
+
+.btn-primary {
+    background-color: #32db1c; /* Color de fondo del botón */
+    color: #ffffff; /* Color del texto del botón */
+    border: none; /* Quita el borde */
+    border-radius: 0; /* Quita la esquina redondeada */
+    font-weight: 500; /* Peso de la fuente */
+}
+
+.btn-primary:hover {
+    background-color: #158a05; /* Cambia el color de fondo al pasar el mouse */
+}
+
+
+/* Estilos para el apartado de progreso */
+.progress {
+    height: 30px;
+}
+
+.progress-bar {
+    font-weight: bold;
+}
+
+/* Estilos para el texto de calorías consumidas y restantes */
+.container p {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Estilos para el footer */
+footer {
+    position: relative; /* Cambiado a relativo */
+    bottom: 0; /* Posición en la parte inferior */
+    width: 100%; /* Ancho completo */
+    background-color: #154d00; /* Cambiado el color de fondo a verde oscuro */
+    color: #ffffff; /* Color del texto */
+    padding: 20px 0; /* Espaciado interno */
+    font-family: "Inter", sans-serif;
+    font-weight: 400; /* Cambiar el peso de la fuente */
+    font-size: 16px; /* Cambiar el tamaño del texto */
+}
+
+.footer-link {
+color: #ffffff; /* Color del texto de los enlaces */
+text-decoration: none; /* Quita el subrayado de los enlaces */
+}
+
+.footer-link:hover {
+color: #ffc107; /* Cambia el color del texto al pasar el mouse sobre los enlaces */
+}
+
+.footer-icon {
+font-size: 24px; /* Tamaño de iconos */
+margin-right: 10px; /* Espacio a la derecha de los iconos */
+}
+
+.footer-heading {
+    font-size: 20px; /* Tamaño del texto del encabezado */
+    font-weight: 500; /* Peso de la fuente del encabezado */
+    margin-bottom: 10px; /* Espacio inferior */
+}

@@ -1,0 +1,58 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Nuevo Registro de Peso{% endblock %}
+
+{% block content %}
+    <h1>Gráfico de Progresión de Peso</h1>
+        <div style="width: 800px; height: 600px;"> {# Ajusta el ancho y alto según sea necesario #}
+        <canvas id="pesoChart"></canvas>
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById('pesoChart').getContext('2d');
+        var pesoData = [
+            {% for peso in pesos %}
+                {{ peso.peso }},
+            {% endfor %}
+        ];
+        var fechasData = [
+            {% for peso in pesos %}
+                '{{ peso.fechapeso|date('Y-m-d') }}',
+            {% endfor %}
+        ];
+        var myChart = new Chart(ctx, {
+            type: 'line', // Cambia el tipo de gráfico a línea
+            data: {
+                labels: fechasData,
+                datasets: [{
+                    label: 'Peso (kg)',
+                    data: pesoData,
+                    borderColor: 'rgb(21, 77, 0)', // Color de la línea
+                    borderWidth: 1,
+                    fill: {
+                        target: 'origin', // Rellena desde la parte inferior
+                        above: 'rgba(75, 192, 192, 0.2)', // Color de relleno arriba de la línea (verde)
+                        below: 'rgba(0, 128, 0, 0.2)' // Color de relleno abajo de la línea (verde)
+                    }
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        
+                        suggestedMin: 40
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+    <h1>Nuevo Registro de Peso</h1>
+    {{ form_start(formulario) }}
+    {{ form_row(formulario.peso) }}
+    {{ form_row(formulario.save) }} {# Agregar esta línea para mostrar el botón de "Guardar" #}
+    {{ form_end(formulario) }}
+{% endblock %}

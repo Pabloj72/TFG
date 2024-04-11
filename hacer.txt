@@ -4,10 +4,12 @@ Pagina default - 50%
 Register - Falta Frontend
 Login - Falta Frontend
 Pagina About - Falta todo
-Pagina Home ---> Resumen diario y navbar a todo
+Pagina Home ---> Falta algo de Front, pero esta muy avanzado
 Pagina ver perfil ----> Progreso/Editar datos
 Pagina alimentos -----> Buscador de alimentos con autocompletar
-Pagina añadir alimentos 
+Pagina Objetivos -----> Falta pensar como hacerlo, pero los calculos de calorias estan hechos
+Pagina Progreso ---> Esta casi todo
+Pagina añadir alimentos -----> Falta front
 
 Pagina Administrador
 Pagina añadir ejercicios

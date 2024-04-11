@@ -1,0 +1,28 @@
+{# templates/ejercicio/registro_ejercicio.html.twig #}
+
+{% extends 'layout.html.twig' %}
+
+{% block title %}Registro de Ejercicio{% endblock %}
+
+{% block content %}
+    <h1>Registro de Ejercicio</h1>
+    
+<form method="post">
+    {% for ejercicio in ejercicios %}
+        <div>
+            <input type="checkbox" id="ejercicio_{{ ejercicio.id }}" name="ejercicios[]" value="{{ ejercicio.id }}">
+            <label for="ejercicio_{{ ejercicio.id }}">{{ ejercicio.nombre }}</label>
+        </div>
+    {% endfor %}
+    <label for="duracion">Duración (minutos):</label>
+    <input type="number" id="duracion" name="duracion" min="1">
+    <button type="submit">Registrar</button>
+</form>
+
+
+    {% if caloriasQuemadas is not null %}
+        <div>
+            <p>Calorías quemadas: {{ caloriasQuemadas }}</p>
+        </div>
+    {% endif %}
+{% endblock %}

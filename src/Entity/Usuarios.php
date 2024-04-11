@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: UsuariosRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -44,6 +46,10 @@ class Usuarios implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 20, nullable: true)] // 'sedentario', 'actividad ligera', etc.
     private ?string $intensidadFisica;
+    
+    #[ORM\OneToMany(mappedBy: "usuario", targetEntity: RegistroPeso::class)]
+    private $registroPesos;
+
     
 
     public function getId(): ?int
@@ -182,5 +188,39 @@ class Usuarios implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+    public function __construct()
+    {
+        $this->registroPesos = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|RegistroPeso[]
+     */
+    public function getRegistroPesos(): Collection
+    {
+        return $this->registroPesos;
+    }
+
+    public function addRegistroPeso(RegistroPeso $registroPeso): self
+    {
+        if (!$this->registroPesos->contains($registroPeso)) {
+            $this->registroPesos[] = $registroPeso;
+            $registroPeso->setUsuario($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegistroPeso(RegistroPeso $registroPeso): self
+    {
+        if ($this->registroPesos->removeElement($registroPeso)) {
+            // set the owning side to null (unless already changed)
+            if ($registroPeso->getUsuario() === $this) {
+                $registroPeso->setUsuario(null);
+            }
+        }
+
+        return $this;
     }
 }
