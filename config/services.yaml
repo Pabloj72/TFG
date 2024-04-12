@@ -31,3 +31,5 @@ services:
             $client: '@http_client'
             $baseUrl: 'https://api.edamam.com'
             $apiKey: '%env(EDAMAM_API_KEY)%'
+    
+

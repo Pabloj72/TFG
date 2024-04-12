@@ -7,7 +7,9 @@
 }
 
 body {
-    background-color: #f3f4f5;
+    background-image: url('/public/img/white-background-gradient-modern-abstract-design-wave_343694-2337.png');
+    background-size: cover;
+    background-position: center;
     font-family: "Inter", sans-serif;
     font-weight: 600;
 }
@@ -21,6 +23,8 @@ body {
     background-color: #333;
     color: #fff;
 }
+
+
 
 /* Ajusta los estilos adicionales según sea necesario */
 
@@ -135,3 +139,4 @@ margin-right: 10px; /* Espacio a la derecha de los iconos */
     font-weight: 500; /* Peso de la fuente del encabezado */
     margin-bottom: 10px; /* Espacio inferior */
 }
+

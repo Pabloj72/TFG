@@ -223,4 +223,15 @@ class Usuarios implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    public function getLastWeight(): ?float
+{
+    $registroPesos = $this->getRegistroPesos()->toArray();
+    if (!empty($registroPesos)) {
+        /** @var RegistroPeso $ultimoRegistro */
+        $ultimoRegistro = end($registroPesos);
+        return $ultimoRegistro->getPeso();
+    }
+    return null;
+}
+
 }

@@ -1,5 +1,4 @@
 <?php
-// src/Controller/ObjetivosController.php
 
 namespace App\Controller;
 
@@ -7,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Usuarios;
 
 class ObjetivosController extends AbstractController
 {
@@ -16,10 +16,18 @@ class ObjetivosController extends AbstractController
         // Obtener el usuario autenticado
         $usuario = $this->getUser();
         
+        // Obtener el último peso registrado del usuario
+        $ultimoPeso = $usuario->getLastWeight();
+
+        if ($ultimoPeso === null) {
+            // Manejo de error si no hay registros de peso para el usuario
+            throw $this->createNotFoundException('No se encontraron registros de peso para este usuario.');
+        }
+
         // Calcular las calorías necesarias para cada objetivo
-        $caloriasDeficit = $this->calcularCaloriasNecesarias($usuario, 'deficit');
-        $caloriasMantenimiento = $this->calcularCaloriasNecesarias($usuario, 'mantenimiento');
-        $caloriasSuperavit = $this->calcularCaloriasNecesarias($usuario, 'superavit');
+        $caloriasDeficit = $this->calcularCaloriasNecesarias($usuario, 'deficit', $ultimoPeso);
+        $caloriasMantenimiento = $this->calcularCaloriasNecesarias($usuario, 'mantenimiento', $ultimoPeso);
+        $caloriasSuperavit = $this->calcularCaloriasNecesarias($usuario, 'superavit', $ultimoPeso);
 
         return $this->render('objetivos/index.html.twig', [
             'caloriasDeficit' => $caloriasDeficit,
@@ -31,12 +39,11 @@ class ObjetivosController extends AbstractController
     /**
      * Calcula las calorías necesarias según los objetivos del usuario.
      */
-    private function calcularCaloriasNecesarias($usuario, $objetivo)
+    private function calcularCaloriasNecesarias(Usuarios $usuario, string $objetivo, float $ultimoPeso): float
     {
         // Obtener los datos del usuario
         $edad = $usuario->getEdad();
         $altura = $usuario->getAltura();
-        $peso = $usuario->getPeso();
         $genero = $usuario->getGenero();
         $intensidadFisica = $usuario->getIntensidadFisica();
 
@@ -46,13 +53,13 @@ class ObjetivosController extends AbstractController
         // Calcular las calorías necesarias para el objetivo específico
         switch ($objetivo) {
             case 'deficit':
-                $calorias = $this->calcularCaloriasMantenimiento($edad, $altura, $peso, $genero, $factorActividadFisica) - 500;
+                $calorias = $this->calcularCaloriasMantenimiento($edad, $altura, $ultimoPeso, $genero, $factorActividadFisica) - 500;
                 break;
             case 'mantenimiento':
-                $calorias = $this->calcularCaloriasMantenimiento($edad, $altura, $peso, $genero, $factorActividadFisica);
+                $calorias = $this->calcularCaloriasMantenimiento($edad, $altura, $ultimoPeso, $genero, $factorActividadFisica);
                 break;
             case 'superavit':
-                $calorias = $this->calcularCaloriasMantenimiento($edad, $altura, $peso, $genero, $factorActividadFisica) + 500;
+                $calorias = $this->calcularCaloriasMantenimiento($edad, $altura, $ultimoPeso, $genero, $factorActividadFisica) + 500;
                 break;
             default:
                 $calorias = 0;
@@ -64,7 +71,7 @@ class ObjetivosController extends AbstractController
     /**
      * Calcula el factor de actividad física basado en la intensidad de la actividad física del usuario.
      */
-    private function calcularFactorActividadFisica($intensidadFisica)
+    private function calcularFactorActividadFisica(string $intensidadFisica): float
     {
         switch ($intensidadFisica) {
             case 'sedentario':
@@ -85,7 +92,7 @@ class ObjetivosController extends AbstractController
     /**
      * Calcula las calorías necesarias para mantener el peso del usuario.
      */
-    private function calcularCaloriasMantenimiento($edad, $altura, $peso, $genero, $factorActividadFisica)
+    private function calcularCaloriasMantenimiento(int $edad, int $altura, float $peso, string $genero, float $factorActividadFisica): float
     {
         // Fórmula básica de Harris-Benedict para calcular las calorías de mantenimiento
         if ($genero === 'masculino') {
